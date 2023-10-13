@@ -346,6 +346,7 @@ GEM
     sqlite3 (1.6.2-x86_64-linux)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    stripe (9.4.0)
     table_print (1.5.7)
     tabulo (2.8.2)
       tty-screen (= 0.8.1)
@@ -435,6 +436,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  stripe (~> 9.4)
   table_print
   turbo-rails
   tzinfo-data

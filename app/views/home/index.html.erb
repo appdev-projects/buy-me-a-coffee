@@ -1,4 +1,23 @@
 <div class="container">
   <h1>Buy Me a Coffee ☕️</h1>
   <p>Please buy me a coffee from the kindness of your heart ❤️</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @products.each do |product| %>
+      <div class="col">
+        <div class="card h-100">
+          <% if product.images.any? %>
+            <img src="<%= product.images.first %>" class="card-img-top">
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.description %></p>
+            <form action="/checkout">
+              <input type="hidden" name="price" value="<%= product.default_price %>" />
+              <button class="btn btn-primary">Buy</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
