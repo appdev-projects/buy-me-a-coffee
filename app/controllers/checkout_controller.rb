@@ -18,7 +18,7 @@ class CheckoutController < ApplicationController
       cancel_url: new_checkout_url,
     })
 
-    # TODO: fix, url gets truncated because of fragment identifier "#"
+    # BUG: url gets truncated during redirect in codespaces because of fragment identifier "#"
     # redirect_to @session.url, allow_other_host: true
     render inline: "<script>window.location = '<%= @session.url %>'</script>"
   end
