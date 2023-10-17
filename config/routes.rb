@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   end
 
 
-  root "checkout#new"
+  root "checkout#index"
 end

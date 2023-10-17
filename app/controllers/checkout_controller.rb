@@ -1,6 +1,8 @@
 class CheckoutController < ApplicationController
   def new; end
 
+  def index; end
+
   def return
     redirect_to root_path, flash: { success: "Checkout created successfully!" }
   end
