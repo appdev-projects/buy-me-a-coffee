@@ -1,25 +1,21 @@
 class CheckoutController < ApplicationController
-  def new
-    if params[:success]
-      redirect_to root_path, flash: { success: "Checkout created successfully!" }
-    else
-      redirect_to root_path, flash: { error: "Sorry to see you cancel." }
-    end
+  def new; end
+
+  def return
+    redirect_to root_path, flash: { success: "Checkout created successfully!" }
   end
 
   def create
-    @session = Stripe::Checkout::Session.create({
+    session = Stripe::Checkout::Session.create({
       line_items: [{
-        price: params.fetch("price"),
+        price: "price_1O0UaxDs0InRBced8T97Jy1x",
         quantity: 1,
       }],
       mode: "payment",
-      success_url: new_checkout_url + "?success=true",
-      cancel_url: new_checkout_url,
+      ui_mode: "embedded",
+      return_url: return_checkout_index_url + "?session_id={CHECKOUT_SESSION_ID}"
     })
-
-    # TODO: fix, url gets truncated because of fragment identifier "#"
-    # redirect_to @session.url, allow_other_host: true
-    render inline: "<script>window.location = '<%= @session.url %>'</script>"
+  
+    render json: {clientSecret: session.client_secret}
   end
 end
