@@ -1,6 +1,6 @@
 class CheckoutController < ApplicationController
   def new
-    @products = Stripe::Product.list(limit: 1)
+    @products = Stripe::Product.list(limit: 1, active: true)
   end
 
   def success; end
