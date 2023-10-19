@@ -1,5 +1,7 @@
 class CheckoutController < ApplicationController
-  def new; end
+  def new
+    @products = Stripe::Product.list(limit: 1)
+  end
 
   def success; end
 
@@ -8,7 +10,7 @@ class CheckoutController < ApplicationController
   def create
     session = Stripe::Checkout::Session.create({
       line_items: [{
-        price: "price_1O0UaxDs0InRBced8T97Jy1x",
+        price: params.fetch("price"),
         quantity: 1,
       }],
       mode: 'payment',

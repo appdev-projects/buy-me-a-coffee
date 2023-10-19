@@ -1,3 +1,23 @@
 <div class="container">
-  <%= render "form" %>
+  <div class="my-5">
+    <% @products.each do |product| %>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <% if product.images.any? %>
+            <img src="<%= product.images.first %>" class="card-img-top">
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.description %></p>
+            <%= form_tag('/checkout', remote: true, data: { turbo: false }) do %>
+              <input type="hidden" name="price" value="<%= product.default_price %>" />
+              <button class="btn btn-primary">
+                Buy me a coffee ☕️
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
