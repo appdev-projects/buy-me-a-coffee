@@ -1,5 +1,7 @@
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
-    <%= link_to "☕️", root_path, class: "navbar-brand", data: { turbo: false} %>
+    <%= link_to "☕️", root_path, class: "navbar-brand me-auto", data: { turbo: false} %>
+    <%= link_to 'Sign In', new_user_session_path, class: "btn btn-outline-primary" unless user_signed_in? %>
+    <%= button_to("Log Out",destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") if user_signed_in? %>
   </div>
 </nav>
