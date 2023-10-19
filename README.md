@@ -1,4 +1,4 @@
-# Buy Me a Coffee
+# Buy a Coffee
 This is a simple demo showing how to accept payments using stripe
 
 This demo fetches stripe products `@products = Stripe::Product.list(limit: 1)`
