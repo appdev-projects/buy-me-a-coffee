@@ -25,3 +25,9 @@ STRIPE_PUBLISHABLE_KEY
 STRIPE_SECRET_KEY
 STRIPE_ENDPOINT_SECRET
 ```
+
+# Testing
+
+https://stripe.com/docs/testing
+
+Test credit card number "4242 4242 4242 4242"
