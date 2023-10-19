@@ -1,4 +1,6 @@
 class CheckoutController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @products = Stripe::Product.list(limit: 1, active: true)
   end
@@ -13,7 +15,8 @@ class CheckoutController < ApplicationController
         price: params.fetch("price"),
         quantity: 1,
       }],
-      mode: 'payment',
+      customer_email: current_user.email,
+      mode: "payment",
       success_url: success_checkout_index_url,
       cancel_url: cancel_checkout_index_url,
     })
