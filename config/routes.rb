@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   resources :checkout do
     collection do
-      get "return"
+      get "success"
+      get "cancel"
     end
   end
 
 
-  root "checkout#index"
+  root "checkout#new"
 end

@@ -1,11 +1,9 @@
 class CheckoutController < ApplicationController
   def new; end
 
-  def index; end
+  def success; end
 
-  def return
-    redirect_to root_path, flash: { success: "Checkout created successfully!" }
-  end
+  def cancel; end
 
   def create
     session = Stripe::Checkout::Session.create({
@@ -13,11 +11,11 @@ class CheckoutController < ApplicationController
         price: "price_1O0UaxDs0InRBced8T97Jy1x",
         quantity: 1,
       }],
-      mode: "payment",
-      ui_mode: "embedded",
-      return_url: return_checkout_index_url + "?session_id={CHECKOUT_SESSION_ID}"
+      mode: 'payment',
+      success_url: success_checkout_index_url,
+      cancel_url: cancel_checkout_index_url,
     })
-  
-    render json: {clientSecret: session.client_secret}
+
+    redirect_to session.url, allow_other_host: true
   end
 end
