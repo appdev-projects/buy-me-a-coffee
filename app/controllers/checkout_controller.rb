@@ -10,13 +10,14 @@ class CheckoutController < ApplicationController
   def cancel; end
 
   def create
+    # TODO: handle line_items params
     session = Stripe::Checkout::Session.create({
       line_items: [{
         price: params.fetch("price"),
         quantity: 1,
       }],
-      customer_email: current_user.email,
-      mode: "payment",
+      customer: current_user.stripe_customer.id,
+      mode: "subscription",
       success_url: success_checkout_index_url,
       cancel_url: cancel_checkout_index_url,
     })

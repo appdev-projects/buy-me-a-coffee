@@ -10,6 +10,7 @@
 #  reset_password_token   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  stripe_customer_id     :string
 #
 # Indexes
 #
@@ -21,4 +22,23 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :subscriptions
+  has_one :active_subscription, -> { active.order(created_at: :desc).limit(1) }, class_name: "Subscription"
+
+  def stripe_customer
+    return create_stripe_customer unless stripe_customer_id.present?
+
+    Stripe::Customer.retrieve(stripe_customer_id)
+  rescue Stripe::InvalidRequestError
+    create_stripe_customer
+  end
+
+  private
+
+  def create_stripe_customer
+    customer = Stripe::Customer.create(email: self.email)
+    update(stripe_customer_id: customer.id)
+    customer
+  end
 end
