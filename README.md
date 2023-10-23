@@ -3,9 +3,10 @@ This is a simple demo showing how to accept payments using stripe
 
 This demo fetches stripe products `@products = Stripe::Product.list(limit: 1)`
 
+[Stripe API Documentation](https://stripe.com/docs/api)
 
 ## Webhook
-Listen to Stripe events
+[Listen to Stripe events](https://dashboard.stripe.com/test/webhooks/create)
 
 [Stripe CLI](https://github.com/stripe/stripe-cli)
 
