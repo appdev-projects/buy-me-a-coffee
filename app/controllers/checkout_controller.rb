@@ -10,7 +10,6 @@ class CheckoutController < ApplicationController
   def cancel; end
 
   def create
-    # TODO: handle line_items params
     session = Stripe::Checkout::Session.create({
       line_items: [{
         price: params.fetch("price"),

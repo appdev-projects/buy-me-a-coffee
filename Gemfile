@@ -75,6 +75,7 @@ end
 # ===========
 gem "appdev_support"
 gem "awesome_print"
+gem "devise"
 gem "dotenv-rails"
 gem "faker"
 gem "htmlbeautifier"
@@ -108,4 +109,3 @@ group :test do
 end
 
 gem "stripe", "~> 9.4"
-gem "devise"
