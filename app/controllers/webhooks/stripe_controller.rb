@@ -36,12 +36,12 @@ class Webhooks::StripeController < ActionController::API
       subscription = event.data.object
       user = User.find_by(stripe_customer_id: subscription.customer)
       user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription.id)
-      user_subscription&.update(status: subscription.status)
+      user_subscription.update(status: subscription.status)
     when 'customer.subscription.deleted'
       subscription = event.data.object
       user = User.find_by(stripe_customer_id: subscription.customer)
       user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription.id)
-      user_subscription&.update(status: 'canceled')
+      user_subscription.update(status: 'canceled')
     when 'invoice.payment_succeeded'
     when 'invoice.payment_failed'
       # TODO: Handle successful payment, perhaps update the subscription status

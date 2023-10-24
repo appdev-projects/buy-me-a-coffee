@@ -1,21 +1,25 @@
-# Buy a Coffee
-This is a simple demo showing how to accept payments using stripe
-
-This demo fetches stripe products `@products = Stripe::Product.list(limit: 1)`
+# Members Only
+This is a simple demo showing how to accept subscription payments using [Stripe](https://stripe.com)
 
 [Stripe API Documentation](https://stripe.com/docs/api)
 
-## Webhook
-[Listen to Stripe events](https://dashboard.stripe.com/test/webhooks/create)
+# How It Works
 
-[Stripe CLI](https://github.com/stripe/stripe-cli)
+- The `checkout#new` action fetches stripe products `@products = Stripe::Product.list(limit: 1)`
+- The `checkout#create` action creates a stripe checkout sesssion and redirects the user to a Stripe checkout page.
+- Depending on the checkout, the user will be redirected by Stripe to the `checkout#success` or `checkout#cancel` routes
+- Stripe communicates events to the app via the StripeController 'webhook' for things like `checkout.session.completed`. This way we know to create a Subscription record or with an event like `customer.subscription.deleted` update the subscription record status.
+- The user can manage their subscription using the `billing#portal` action which redirects to the Stripe billing portal.
+
+## Webhook
+You can [listen to Stripe events](https://dashboard.stripe.com/test/webhooks/create) using the [Stripe CLI](https://github.com/stripe/stripe-cli)
 
 ```
 stripe login
 stripe listen --forward-to localhost:3000/webhooks/stripe
 ```
 
-Then you can manually trigger events: `stripe trigger checkout.session.completed`
+You can then manually trigger events from the CLI (eg `stripe trigger checkout.session.completed`) or simply wait for Stripe to communicate with your webhook while using the app.
 
 
 # ENV
@@ -31,4 +35,4 @@ STRIPE_ENDPOINT_SECRET
 
 https://stripe.com/docs/testing
 
-Test credit card number "4242 4242 4242 4242"
+You can use a test credit card number "4242 4242 4242 4242" to purchase a subscription
