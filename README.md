@@ -1,5 +1,7 @@
 # Members Only
-This is a simple demo showing how to accept subscription payments using [Stripe](https://stripe.com)
+This is a simple demo showing how to accept subscription payments using [Stripe](https://stripe.com).
+
+If you're looking for an alternative/simpler way to accept payments, checkout [Stripe Payment Links](https://stripe.com/payments/payment-links).
 
 [Stripe API Documentation](https://stripe.com/docs/api)
 
