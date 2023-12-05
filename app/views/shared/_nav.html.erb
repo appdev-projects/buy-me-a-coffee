@@ -10,7 +10,7 @@
   <div class="alert alert-success" role="alert">
     Welcome to the club
   </div>
-<% else %>
+<% elsif user_signed_in? && current_user.active_subscription.blank? %>
   <div class="alert alert-danger" role="alert">
     Need to pay your dues
   </div>
